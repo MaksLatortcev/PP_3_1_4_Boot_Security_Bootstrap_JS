@@ -12,14 +12,12 @@
         <tr>
             <th>Id</th>
             <th>Login</th>
-            <th>Password</th>
             <th>Action</th>
         </tr>
         <th:forEach th:each="user : ${users}">
             <tr>
                 <td th:utext="${user.getId}"></td>
                 <td th:utext="${user.getLogin}"></td>
-                <td th:utext="${user.getPassword}"></td>
                 <td>
                     <a th:href="@{/admin/edit(id=${user.getId()})}">Edit</a>
                     <a th:href="@{/admin/delete(id=${user.getId()})}">Delete</a>

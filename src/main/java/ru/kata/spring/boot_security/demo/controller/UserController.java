@@ -55,6 +55,7 @@ public class UserController {
     public ModelAndView editUserForm(@RequestParam long id) {
         ModelAndView mav = new ModelAndView("edit_user");
         User user = userService.getUserById(id);
+        user.setPassword("*****");
         List<Role> roles = roleService.getAllRoles();
         mav.addObject("user", user);
         mav.addObject("roles", roles);
