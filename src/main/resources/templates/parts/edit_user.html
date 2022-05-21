@@ -1,0 +1,28 @@
+<div th:fragment="edit_user">
+    <form th:action="@{/admin/edit}" th:object="${user}" id="form_edit" method="post">
+        <table>
+            <tr>
+                <td>ID:</td>
+                <td th:utext="${user.getId()}"></td>
+                <td><input type="hidden" name="id" th:value="${user.getId()}"/></td>
+            </tr>
+            <tr>
+                <td>Login:</td>
+                <td><input type="text" name="login" th:value="${user.getLogin()}"/></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type="text" name="password"  th:value="${user.getPassword()}"/></td>
+            </tr>
+            <tr>
+                <select id="multiple-hobbies" name="roles" th:value="*{roles}" multiple="multiple">
+
+                    <option th:each="role: ${roles}"
+                            th:value="${role.getId()}" th:text="${role.getRoleName()}">
+                </select>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<!--    th:insert="parts/edit_user :: edit_user"    -->

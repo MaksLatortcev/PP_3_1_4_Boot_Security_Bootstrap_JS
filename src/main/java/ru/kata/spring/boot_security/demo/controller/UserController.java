@@ -42,25 +42,17 @@ public class UserController {
         this.roleService = roleService;
     }
 
-    @GetMapping("/admin/new")
-    public String newUserForm(Model model) {
-        User user = new User();
-        List<Role> roles = roleService.getAllRoles();
-        model.addAttribute("user", user);
-        model.addAttribute("roles", roles);
-        return "new_user";
-    }
 
-    @GetMapping("/admin/edit")
-    public ModelAndView editUserForm(@RequestParam long id) {
-        ModelAndView mav = new ModelAndView("edit_user");
-        User user = userService.getUserById(id);
-        user.setPassword("*****");
-        List<Role> roles = roleService.getAllRoles();
-        mav.addObject("user", user);
-        mav.addObject("roles", roles);
-        return mav;
-    }
+//    @GetMapping("/admin/edit")
+//    public ModelAndView editUserForm(@RequestParam long id) {
+//        ModelAndView mav = new ModelAndView("parts/edit_user");
+//        User user = userService.getUserById(id);
+//        user.setPassword("*****");
+//        List<Role> roles = roleService.getAllRoles();
+//        mav.addObject("user", user);
+//        mav.addObject("roles", roles);
+//        return mav;
+//    }
 
     @PostMapping("/admin/save")
     public String saveUser(@ModelAttribute("user") User user) {
@@ -70,22 +62,22 @@ public class UserController {
     }
 
     @PostMapping("/admin/edit")
-    public String editUser(@ModelAttribute("user") User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    public String editUser(@RequestParam("id") long id,
+                           @RequestParam("login") String login,
+                           @RequestParam("password") String password,
+                           @RequestParam("roles") List<Role> roles) {
+        User user = userService.getUserById(id);
+        user.setLogin(login);
+        user.setPassword(passwordEncoder.encode(password));
+        user.setRoles(roles);
         userService.updateUser(user);
-        return "redirect:/admin/";
+        return "redirect:/admin";
     }
 
     @GetMapping("/admin/delete")
     public String deleteUserForm(@RequestParam long id) {
         userService.deleteUser(id);
         return "redirect:/admin/";
-    }
-
-    @GetMapping("/admin")
-    public String getAllUsers(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
-        return "users";
     }
 
     @GetMapping("/user")
@@ -95,8 +87,13 @@ public class UserController {
         return "user";
     }
 
-    @GetMapping("/")
-    public String editUserForm() {
-        return "index";
+    @GetMapping("/admin")
+    public String editUserForm(Model model) {
+        User user = new User();
+        List<Role> roles = roleService.getAllRoles();
+        model.addAttribute("user", user);
+        model.addAttribute("roles", roles);
+        model.addAttribute("users", userService.getAllUsers());
+        return "index1";
     }
 }
