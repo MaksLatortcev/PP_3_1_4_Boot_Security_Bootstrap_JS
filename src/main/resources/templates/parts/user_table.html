@@ -7,7 +7,19 @@
                 ID
             </th>
             <th>
-                Login
+                First name
+            </th>
+            <th>
+                Last name
+            </th>
+            <th>
+                Age
+            </th>
+            <th>
+                E-mail
+            </th>
+            <th>
+                Role
             </th>
             <th>
                 Edit
@@ -21,69 +33,80 @@
         <th:forEach th:each="user : ${users}">
             <tr>
                 <td th:utext="${user.getId}"></td>
-                <td th:utext="${user.getLogin}"></td>
+                <td th:utext="${user.getFirstName}"></td>
+                <td th:utext="${user.getLastName}"></td>
+                <td th:utext="${user.getAge}"></td>
+                <td th:utext="${user.getEmail}"></td>
+                <td th:utext="${user.getRoles}"></td>
                 <td>
+                    <!--EDIT-->
                     <!--                     Кнопка-триггер модального окна-->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            th:data-bs-target="'#exampleModal'+${user.getId}" th:data-row="${user}">
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                            th:attr="data-bs-target=${'#editModal'+user.getId()}" th:data-row="${user}">
                         Edit
                     </button>
 
                     <!-- Модальное окно -->
-                    <div class="modal fade" th:id="'exampleModal'+${user.getId}" tabindex="-1"
+                    <div class="modal fade" th:each="user : ${users}" th:attr="id=${'editModal'+user.getId()}"
+                         tabindex="-1"
                          aria-labelledby="exampleModalLabel"
                          aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Edit user</h5>
+                                    <h5 class="modal-title" id="editModalLabel">Edit user</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Закрыть"></button>
                                 </div>
-                                <div class="modal-body">
-                                    <!--                                    FORM-->
-                                    <form th:action="@{/admin/edit}" th:object="${user}" id="form_edit" method="post">
-                                        <table>
-                                            <tr>
-                                                <td>ID:</td>
-                                                <td th:utext="${user.getId()}"></td>
-                                                <td><input type="hidden" name="id" th:value="${user.getId()}"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Login:</td>
-                                                <td><input type="text" name="login" th:value="${user.getLogin()}"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Password:</td>
-                                                <td><input type="text" name="password"
-                                                           value="***"/></td>
-                                            </tr>
-                                            <tr>
-                                                <select id="multiple-hobbies" name="roles" th:value="*{roles}"
-                                                        multiple="multiple">
-
-                                                    <option th:each="role: ${roles}"
-                                                            th:value="${role.getId()}" th:text="${role.getRoleName()}">
-                                                </select>
-                                            </tr>
-                                        </table>
-                                    </form>
-                                    <!--                                    END FORM-->
-                                </div>
+                                <div class="modal-body" th:insert="parts/edit_user :: edit_user"></div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                        Close
                                     </button>
-                                    <button type="submit" class="btn btn-primary" form="form_edit">Сохранить изменения
+                                    <button class="btn btn-primary"
+                                            th:form="${'editForm' + user.id}"
+                                            type="submit">
+                                        Edit
                                     </button>
-                                    <!--                                    <a th:href="'#id?'+${user.getId()}">Edit</a>-->
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!--                    <a th:href="@{/admin/edit(id=${user.getId()})}">Edit</a>            -->
                 </td>
                 <td>
-                    <a th:href="@{/admin/delete(id=${user.getId()})}">Delete</a>
+                    <!--DELETE-->
+                    <!--                     Кнопка-триггер модального окна-->
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                            th:attr="data-bs-target=${'#delModal'+user.getId()}" th:data-row="${user}">
+                        Delete
+                    </button>
+
+                    <!-- Модальное окно -->
+                    <div class="modal fade" th:each="user : ${users}" th:attr="id=${'delModal'+user.getId()}"
+                         tabindex="-1"
+                         aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="delModalLabel">Edit user</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Закрыть"></button>
+                                </div>
+                                <div class="modal-body" th:insert="parts/del_user :: del_user"></div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                        Close
+                                    </button>
+                                    <button class="btn btn-primary"
+                                            th:form="${'delForm' + user.id}"
+                                            type="submit">
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </td>
             </tr>
         </th:forEach>

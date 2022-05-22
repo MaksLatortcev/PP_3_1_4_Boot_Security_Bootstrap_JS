@@ -17,14 +17,19 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserByUsername(String username) {
-        return (User) entityManager.createQuery("FROM User u WHERE u.login = :username")
+        return (User) entityManager.createQuery("FROM User u WHERE u.firstName = :username")
                 .setParameter("username", username)
                 .getResultList().get(0);
     }
 
     @Override
     public void saveUser(User user) {
-        User userForSave = new User(user.getLogin(), user.getPassword());
+        User userForSave = new User(
+                user.getFirstName(),
+                user.getLastName(),
+                user.getAge(),
+                user.getEmail(),
+                user.getPassword());
         entityManager.persist(userForSave);
         for (Role role : user.getRoles()) {
             entityManager.createNativeQuery("INSERT INTO users_roles (user_id, role_id) VALUES (?, ?)")
@@ -47,7 +52,10 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void updateUser(User user) {
         User userForUpdate = entityManager.find(User.class, user.getId());
-        userForUpdate.setLogin(user.getLogin());
+        userForUpdate.setFirstName(user.getFirstName());
+        userForUpdate.setLastName(user.getLastName());
+        userForUpdate.setAge(user.getAge());
+        userForUpdate.setEmail(user.getEmail());
         userForUpdate.setPassword(user.getPassword());
         entityManager.merge(userForUpdate);
 

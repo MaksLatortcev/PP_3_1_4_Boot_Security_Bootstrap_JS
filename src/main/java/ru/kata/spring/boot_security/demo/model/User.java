@@ -17,8 +17,17 @@ public class User implements UserDetails {
     @Column(name = "user_id")
     private long id;
 
-    @Column(name = "login", unique = true)
-    private String login;
+    @Column(name = "firstName")
+    private String firstName;
+
+    @Column(name = "lastName")
+    private String lastName;
+
+    @Column(name = "age")
+    private int age;
+
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "password")
     private String password;
@@ -38,15 +47,17 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String login, String password) {
-        this.login = login;
+    public User(String firstName, String password) {
+        this.firstName = firstName;
         this.password = password;
     }
 
-    public User(String login, String password, List<Role> roles) {
-        this.login = login;
+    public User(String firstName, String lastName, int age, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.email = email;
         this.password = password;
-        this.roles = roles;
     }
 
     public void setId(long id) {
@@ -57,12 +68,12 @@ public class User implements UserDetails {
         return id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setLogin(String firstName) {
-        this.login = firstName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
 
@@ -70,8 +81,32 @@ public class User implements UserDetails {
         return password;
     }
 
-    public void setPassword(String lastName) {
-        this.password = lastName;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public List<Role> getRoles() {
@@ -89,7 +124,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return login;
+        return firstName;
     }
 
     @Override

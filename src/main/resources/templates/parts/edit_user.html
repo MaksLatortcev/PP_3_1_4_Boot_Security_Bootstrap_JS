@@ -1,28 +1,53 @@
 <div th:fragment="edit_user">
-    <form th:action="@{/admin/edit}" th:object="${user}" id="form_edit" method="post">
-        <table>
-            <tr>
-                <td>ID:</td>
-                <td th:utext="${user.getId()}"></td>
-                <td><input type="hidden" name="id" th:value="${user.getId()}"/></td>
-            </tr>
-            <tr>
-                <td>Login:</td>
-                <td><input type="text" name="login" th:value="${user.getLogin()}"/></td>
-            </tr>
-            <tr>
-                <td>Password:</td>
-                <td><input type="text" name="password"  th:value="${user.getPassword()}"/></td>
-            </tr>
-            <tr>
-                <select id="multiple-hobbies" name="roles" th:value="*{roles}" multiple="multiple">
+    <form class="text-center"
+          method="POST"
+          th:action="@{/admin/edit}"
+          th:id="${'editForm' + user.id}"
+          th:object="${user}">
+        <div class="row mb-3">
+            <label for="editId" class="col-sm-2 col-form-label" th:utext="${user.getId()}">ID</label>
+            <div class="col-sm-10">
+                <input type="hidden" class="form-control" name="id" th:value="${user.getId()}" id="editId">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="editFirstName" class="col-sm-2 col-form-label">First name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="firstName" th:value="${user.getFirstName()}"
+                       id="editFirstName">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="editLastName" class="col-sm-2 col-form-label">Last name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="lastName" th:value="${user.getLastName()}"
+                       id="editLastName">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="editAge" class="col-sm-2 col-form-label">Age</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" name="age" th:value="${user.getAge()}" id="editAge">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="editEmail" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" name="email" th:value="${user.getEmail()}" id="editEmail">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="editPassword" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" name="password" value="*****" id="editPassword">
+            </div>
+        </div>
 
-                    <option th:each="role: ${roles}"
-                            th:value="${role.getId()}" th:text="${role.getRoleName()}">
-                </select>
-            </tr>
-        </table>
+        <div class="form-check" th:each="role: ${roles}">
+            <input class="form-check-input" type="checkbox" th:field="*{roles}" th:value="${role.getId()}"
+                   th:text="${role.getRoleName()}"
+                   id="formCheckDefault">
+            <label class="form-check-label" for="formCheckDefault"> </label>
+        </div>
     </form>
 </div>
-
-<!--    th:insert="parts/edit_user :: edit_user"    -->

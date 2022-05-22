@@ -1,7 +1,7 @@
 <div th:fragment="navbar">
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand">Navbar</a>
+            <span th:text="${#request.userPrincipal.principal.Username}"></span>
             <a class="text-secondary me-2" href="/logout">Logout</a>
         </div>
     </nav>
