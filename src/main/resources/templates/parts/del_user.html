@@ -1,61 +1,81 @@
 <div th:fragment="del_user">
-    <form class="text-center"
-          method="GET"
-          th:action="@{/admin/delete}"
-          th:id="${'delForm' + user.id}"
-          th:object="${user}">
-        <div class="row mb-3">
-            <label for="delId" class="col-sm-2 col-form-label">ID</label>
-            <div class="col-sm-10">
-                <input type="hidden" class="form-control" name="id" th:value="${user.getId()}">
-                <input type="number" class="form-control" name="id" disabled="disabled" th:value="${user.getId()}"
-                       id="delId">
+    <div class="container-sm">
+        <form class="text-center"
+              method="GET"
+              th:action="@{/admin/delete}"
+              th:id="${'delForm' + user.id}"
+              th:object="${user}">
+            <div class="row mb-3">
+                <div class="d-grid">
+                    <b><label for="delId" class="center">ID</label></b>
+                    <div class="m-2">
+                        <input type="hidden" class="align-content-md-center form-control" name="id"
+                               th:value="${user.getId()}">
+                        <input type="number" class="align-content-md-center form-control" name="id" disabled="disabled"
+                               th:value="${user.getId()}"
+                               id="delId">
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row mb-3">
-            <label for="delFirstName" class="col-sm-2 col-form-label">First name</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" name="firstName" disabled="disabled"
-                       th:value="${user.getFirstName()}"
-                       id="delFirstName">
+            <div class="row mb-3">
+                <div class="d-grid">
+                    <b><label for="delFirstName" class="center">First name</label></b>
+                    <div class="m-2">
+                        <input type="text" class="align-content-md-center form-control" name="firstName"
+                               disabled="disabled"
+                               th:value="${user.getFirstName()}"
+                               id="delFirstName">
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row mb-3">
-            <label for="delLastName" class="col-sm-2 col-form-label">Last name</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" name="lastName" disabled="disabled"
-                       th:value="${user.getLastName()}"
-                       id="delLastName">
+            <div class="row mb-3">
+                <div class="d-grid">
+                    <b><label for="delLastName" class="center">Last name</label></b>
+                    <div class="m-2">
+                        <input type="text" class="align-content-md-center form-control" name="lastName"
+                               disabled="disabled"
+                               th:value="${user.getLastName()}"
+                               id="delLastName">
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row mb-3">
-            <label for="delAge" class="col-sm-2 col-form-label">Age</label>
-            <div class="col-sm-10">
-                <input type="number" class="form-control" name="age" disabled="disabled" th:value="${user.getAge()}"
-                       id="delAge">
+            <div class="row mb-3">
+                <div class="d-grid">
+                    <b><label for="delAge" class="center">Age</label></b>
+                    <div class="m-2">
+                        <input type="number" class="align-content-md-center form-control" name="age" disabled="disabled"
+                               th:value="${user.getAge()}"
+                               id="delAge">
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row mb-3">
-            <label for="delEmail" class="col-sm-2 col-form-label">Email</label>
-            <div class="col-sm-10">
-                <input type="email" class="form-control" name="email" disabled="disabled" th:value="${user.getEmail()}"
-                       id="delEmail">
+            <div class="row mb-3">
+                <div class="d-grid">
+                    <b><label for="delEmail" class="center">Email</label></b>
+                    <div class="m-2">
+                        <input type="email" class="align-content-md-center form-control" name="email"
+                               disabled="disabled"
+                               th:value="${user.getEmail()}"
+                               id="delEmail">
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row mb-3">
-            <label for="delPassword" class="col-sm-2 col-form-label">Password</label>
-            <div class="col-sm-10">
-                <input type="password" class="form-control" name="password" disabled="disabled" value=""
-                       id="delPassword">
+            <div class="row mb-3">
+                <div class="d-grid">
+                    <b><label for="delPassword" class="center">Password</label></b>
+                    <div class="m-2">
+                        <input type="password" class="align-content-md-center form-control" name="password"
+                               disabled="disabled" value=""
+                               id="delPassword">
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div class="form-check" th:each="role: ${roles}">
-            <input class="form-check-input" type="checkbox" disabled="disabled" th:field="*{roles}"
-                   th:value="${role.getId()}"
-                   th:text="${role.getRoleName()}"
-                   id="formCheckDefault">
-            <label class="form-check-label" for="formCheckDefault"> </label>
-        </div>
-    </form>
+            <div class="form-check" th:each="role: ${roles}">
+                <input class="form-check-input" type="checkbox" disabled="disabled" th:field="*{roles}"
+                       th:value="${role.getId()}"
+                       id="formCheckDefault">
+                <b><label class="form-check-label" for="formCheckDefault" th:text="${role.getRoleName()}"></label></b>
+            </div>
+        </form>
+    </div>
 </div>

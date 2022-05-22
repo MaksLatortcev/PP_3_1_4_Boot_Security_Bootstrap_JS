@@ -1,7 +1,12 @@
 <div th:fragment="navbar">
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
-            <span th:text="${#request.userPrincipal.principal.Username}"></span>
+            <div>
+                <b><span class="text-white" th:text="${#request.userPrincipal.principal.Username}"></span> </b>
+                <span class="text-white"> with roles:</span>
+                <span class="text-white" th:each="role : ${#request.userPrincipal.principal.Authorities}"
+                      th:text="' ' + *{role}"></span>
+            </div>
             <a class="text-secondary me-2" href="/logout">Logout</a>
         </div>
     </nav>
