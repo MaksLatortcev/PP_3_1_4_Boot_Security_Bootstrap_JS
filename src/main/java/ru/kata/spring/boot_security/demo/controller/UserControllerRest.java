@@ -17,6 +17,7 @@ import java.util.List;
 public class UserControllerRest {
 
     private UserService userService;
+
     private RoleService roleService;
 
     private PasswordEncoder passwordEncoder;
