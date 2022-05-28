@@ -34,7 +34,7 @@ public class UserDaoImpl implements UserDao {
         for (Role role : user.getRoles()) {
             entityManager.createNativeQuery("INSERT INTO users_roles (user_id, role_id) VALUES (?, ?)")
                     .setParameter(1, userForSave.getId())
-                    .setParameter(2, role.getRoleName())
+                    .setParameter(2, role.getId())
                     .executeUpdate();
         }
     }
@@ -61,12 +61,13 @@ public class UserDaoImpl implements UserDao {
 
         entityManager.createNativeQuery("DELETE FROM users_roles WHERE user_id = ?")
                 .setParameter(1, user.getId())
-                .executeUpdate();;
+                .executeUpdate();
+        ;
 
         for (Role role : user.getRoles()) {
             entityManager.createNativeQuery("INSERT INTO users_roles (user_id, role_id) VALUES (?, ?)")
                     .setParameter(1, userForUpdate.getId())
-                    .setParameter(2, role.getRoleName())
+                    .setParameter(2, role.getId())
                     .executeUpdate();
         }
     }
